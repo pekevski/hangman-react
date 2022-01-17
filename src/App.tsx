@@ -1,7 +1,7 @@
 import "./App.css";
 import { Hangman } from "./components/Hangman";
 
-function App() {
+export const App = (): JSX.Element => {
   return (
     <div className="container">
       <Hangman />

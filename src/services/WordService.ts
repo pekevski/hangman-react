@@ -1,6 +1,8 @@
+import { HangmanLetter } from "../model/HangmanLetter";
+import { HangmanResult } from "../model/HangmanResult";
 
 
-export async function getRandomWord() {
+export async function getRandomWord(): Promise<string> {
     let word = "Hangman";
     try {
       const data = await fetch(
@@ -8,7 +10,6 @@ export async function getRandomWord() {
       );
       const wordJSON = await data.json();
       word = wordJSON[0];
-      console.log(word);
     } catch (err) {
       // noop
     }
@@ -17,7 +18,7 @@ export async function getRandomWord() {
 }
 
 // Check result 
-export const checkResult = (letters, remainingGuesses) => {
+export const checkResult = (letters: Array<HangmanLetter>, remainingGuesses: number): HangmanResult | undefined  => {
 
     if (letters.length === 0) {
       return undefined
@@ -26,9 +27,9 @@ export const checkResult = (letters, remainingGuesses) => {
     const allShown = letters.every(l => l.isShown);
 
     if (allShown) {
-      return "WINNER! :)";
+      return HangmanResult.WINNER;
     } else if (remainingGuesses === 0) {
-      return "DEAD :(";
+      return HangmanResult.LOSER;
     } else {
       return undefined;
     }

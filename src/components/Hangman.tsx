@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEventHandler } from "react";
 
 import { Guesses, Guess } from "./Guess";
 import { Letters } from "./Letter";
 import { getRandomWord, checkResult } from "../services/WordService";
+import { HangmanLetter } from "../model/HangmanLetter";
+import { HangmanGuessResult } from "../model/HangmanGuess";
 
-export const Hangman = () => {
-  const [word, setWord] = useState(null);
-  const [letters, setLetters] = useState([]);
-  const [guesses, setGuesses] = useState([]);
-  const [attempts, setAttempts] = useState(6);
+export const Hangman = (): JSX.Element => {
+  const [word, setWord] = useState<string>();
+  const [letters, setLetters] = useState<Array<HangmanLetter>>([]);
+  const [guesses, setGuesses] = useState<Array<HangmanGuessResult>>([]);
+  const [attempts, setAttempts] = useState<number>(6);
 
   // Helper method for word state
-  async function getWord() {
+  async function getWord(): Promise<void> {
     let word = await getRandomWord();
     setWord(word);
     setAttempts(6);
   }
 
   // Retry Button handler
-  const handleRetry = () => {
+  const handleRetry: MouseEventHandler<HTMLButtonElement> = () => {
     // triggers fetch a new word
     setLetters([]);
     setGuesses([]);
@@ -26,14 +28,14 @@ export const Hangman = () => {
   };
 
   // Letter submit handler
-  const onGuessLetter = (guessedLetter) => {
+  const onGuessLetter = (guessedLetter: string): void => {
     let guess = guessedLetter.toLowerCase();
     
     // console.log(`guess: ${guess}`);
     
     // when this is a new guess lets do something with it
     // otherwise we wont calculate it
-    if (guesses.some(g => g.guess === guess)) {
+    if (guesses.some(g => g.character === guess)) {
       return
     }
     
@@ -56,7 +58,7 @@ export const Hangman = () => {
     }
     
     // Add our guess to the list
-    setGuesses(guesses.concat({ guess, correct }));
+    setGuesses(guesses.concat({ character: guess, isCorrect: correct }));
   };
 
   // Inital state onMount

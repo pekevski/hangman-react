@@ -1,4 +1,11 @@
-export const Letter = (props) => {
+import { HangmanLetter } from '../model/HangmanLetter';
+
+type LetterProps = {
+  show: boolean;
+  letter: string;
+}
+
+export const Letter = (props: LetterProps): JSX.Element => {
   if (props.show) {
     return <span className="letter correct">{props.letter}</span>;
   } else {
@@ -6,7 +13,11 @@ export const Letter = (props) => {
   }
 };
 
-export const Letters = (props) => {
+type LettersProps = {
+  letters: Array<HangmanLetter>;
+}
+
+export const Letters = (props: LettersProps): JSX.Element => {
   if (!props.letters.length) {
     return <h1>Wrapping rope around someones neck...</h1>;
   }
