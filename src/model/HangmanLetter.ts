@@ -1,9 +1,6 @@
-
-
 export class HangmanLetter {
+  character!: string;
+  isShown!: boolean;
 
-    character!: string;
-    isShown!: boolean;
-
-    constructor() {}
+  constructor() {}
 }

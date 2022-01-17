@@ -30,15 +30,15 @@ export const Hangman = (): JSX.Element => {
   // Letter submit handler
   const onGuessLetter = (guessedLetter: string): void => {
     let guess = guessedLetter.toLowerCase();
-    
+
     // console.log(`guess: ${guess}`);
-    
+
     // when this is a new guess lets do something with it
     // otherwise we wont calculate it
-    if (guesses.some(g => g.character === guess)) {
-      return
+    if (guesses.some((g) => g.character === guess)) {
+      return;
     }
-    
+
     const currentLetters = letters.slice();
     let correct = false;
 
@@ -56,7 +56,7 @@ export const Hangman = (): JSX.Element => {
       // didnt make a correct guess so use up an attempt
       setAttempts(attempts - 1);
     }
-    
+
     // Add our guess to the list
     setGuesses(guesses.concat({ character: guess, isCorrect: correct }));
   };
@@ -104,5 +104,3 @@ export const Hangman = (): JSX.Element => {
     );
   }
 };
-
-

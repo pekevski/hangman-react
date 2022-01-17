@@ -1,9 +1,14 @@
-import { useState, useRef, ChangeEventHandler, KeyboardEventHandler } from "react";
+import {
+  useState,
+  useRef,
+  ChangeEventHandler,
+  KeyboardEventHandler,
+} from "react";
 import { HangmanGuessResult } from "../model/HangmanGuess";
 
 type GuessProps = {
-  onGuess: (guessedLetter: string) => void
-}
+  onGuess: (guessedLetter: string) => void;
+};
 
 export const Guess = (props: GuessProps): JSX.Element => {
   const [value, setValue] = useState("");
@@ -60,13 +65,13 @@ export const Guess = (props: GuessProps): JSX.Element => {
 };
 
 type GuessesProps = {
-  guesses: Array<HangmanGuessResult>,
-  attempts: number
-}
+  guesses: Array<HangmanGuessResult>;
+  attempts: number;
+};
 
 export const Guesses = (props: GuessesProps): JSX.Element => {
   return (
-    <div className="section" style={{ width: "30%", overflow: 'auto' }}>
+    <div className="section" style={{ width: "30%", overflow: "auto" }}>
       <h3>Attempts:</h3>
       <Attempts attempts={props.attempts} />
       {props.guesses.map((guess, index) => {
@@ -82,8 +87,8 @@ export const Guesses = (props: GuessesProps): JSX.Element => {
 };
 
 type AttemptProps = {
-  attempts: number
-}
+  attempts: number;
+};
 
 export const Attempts = (props: AttemptProps): JSX.Element => {
   return <h5 style={{ margin: 0 }}>Remaining: {props.attempts}</h5>;

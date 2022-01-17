@@ -1,4 +1,4 @@
 export enum HangmanResult {
-    WINNER = 'Winner',
-    LOSER = 'Loser'
+  WINNER = "Winner",
+  LOSER = "Loser",
 }

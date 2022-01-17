@@ -7,6 +7,6 @@ export const App = (): JSX.Element => {
       <Hangman />
     </div>
   );
-}
+};
 
 export default App;
