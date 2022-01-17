@@ -71,25 +71,17 @@ type GuessesProps = {
 
 export const Guesses = (props: GuessesProps): JSX.Element => {
   return (
-    <div className="section" style={{ width: "30%", overflow: "auto" }}>
-      <h3>Attempts:</h3>
-      <Attempts attempts={props.attempts} />
+    <div className="section">
+      <h3>Attempts Remaining: {props.attempts}</h3>
+      <div className="horizontal">
       {props.guesses.map((guess, index) => {
         return (
-          <h3 className={guess.isCorrect ? "correct" : "incorrect"} key={index}>
-            {index + 1}: {guess.character.toUpperCase()} is a{" "}
-            {guess.isCorrect ? "HIT" : "MISS"}
+          <h3 className={guess.isCorrect ? "correct" : "incorrect"} style={{marginRight: '1rem'}} key={index}>
+            {guess.character.toUpperCase()} {guess.isCorrect ? "✅" : "❌"}
           </h3>
         );
       })}
+      </div>
     </div>
   );
-};
-
-type AttemptProps = {
-  attempts: number;
-};
-
-export const Attempts = (props: AttemptProps): JSX.Element => {
-  return <h5 style={{ margin: 0 }}>Remaining: {props.attempts}</h5>;
 };

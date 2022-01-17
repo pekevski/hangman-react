@@ -83,7 +83,7 @@ export const Hangman = (): JSX.Element => {
 
   if (result) {
     return (
-      <div>
+      <div style={{padding: '0.5rem'}}>
         <h1>Hangman word: {word}</h1>
         <h2>Result: {result}</h2>
         <button className="button" onClick={handleRetry}>
@@ -93,8 +93,8 @@ export const Hangman = (): JSX.Element => {
     );
   } else {
     return (
-      <div className="sections">
-        <div className="section" style={{ width: "70%" }}>
+      <div style={{padding: '0.5rem'}}>
+        <div className="section">
           <h1>Hangman</h1>
           <Letters letters={letters} />
           <Guess onGuess={onGuessLetter} />

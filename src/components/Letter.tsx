@@ -23,10 +23,10 @@ export const Letters = (props: LettersProps): JSX.Element => {
   }
 
   return (
-    <>
+    <div className="section horizontal">
       {props.letters.map((value, index) => (
         <Letter key={index} letter={value.character} show={value.isShown} />
       ))}
-    </>
+    </div>
   );
 };
