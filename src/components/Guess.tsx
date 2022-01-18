@@ -54,7 +54,7 @@ export const Guess = (props: GuessProps): JSX.Element => {
   return (
     <>
       <Section horizontal>
-        <GuessTitle>Guess:</GuessTitle>
+        <GuessTitle>Your Guess:</GuessTitle>
         <GuessInput
           autoFocus
           ref={inputEl}

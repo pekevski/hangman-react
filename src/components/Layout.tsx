@@ -48,6 +48,7 @@ export const Button = styled.button`
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border-radius: 0.5rem;
 
     &:hover {
         opacity: 0.6;

@@ -5,10 +5,11 @@ import { Letters } from "./Letter";
 import { getRandomWord, checkResult } from "../services/WordService";
 import { HangmanLetter } from "../model/HangmanLetter";
 import { HangmanGuessResult } from "../model/HangmanGuess";
-import { Button, Container, H1, H2, Section } from "./Layout";
+import { Container, H1, Section } from "./Layout";
+import { Result } from "./Result";
 
 export const Hangman = (): JSX.Element => {
-  const [word, setWord] = useState<string>();
+  const [word, setWord] = useState<string>("");
   const [letters, setLetters] = useState<Array<HangmanLetter>>([]);
   const [guesses, setGuesses] = useState<Array<HangmanGuessResult>>([]);
   const [attempts, setAttempts] = useState<number>(6);
@@ -84,13 +85,7 @@ export const Hangman = (): JSX.Element => {
 
   if (result) {
     return (
-      <Container>
-        <H1>Hangman word: {word}</H1>
-        <H2>Result: {result}</H2>
-        <Button onClick={handleRetry}>
-          Retry
-        </Button>
-      </Container>
+      <Result word={word} result={result} onRetry={handleRetry} />
     );
   } else {
     return (
