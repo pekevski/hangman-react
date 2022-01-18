@@ -1,16 +1,27 @@
 import { HangmanLetter } from "../model/HangmanLetter";
+import styled, { css } from 'styled-components' 
+import { H1, LetterStyle, Section } from "./Layout";
 
 type LetterProps = {
   show: boolean;
-  letter: string;
+  letter?: string;
 };
 
-export const Letter = (props: LetterProps): JSX.Element => {
-  if (props.show) {
-    return <span className="letter correct">{props.letter}</span>;
-  } else {
-    return <span className="letter">?</span>;
-  }
+const LetterSpan = styled.span<LetterProps>`
+  ${LetterStyle}
+  letter-spacing: 0.5ch;
+
+  ${props => props.show && css`
+    color: darkgreen;
+  `}
+`
+
+export const Letter = ({show, letter}: {show: boolean, letter: string}) => {
+  return (
+    <LetterSpan show={show}>
+      {(show) ? letter : '?'}
+    </LetterSpan>
+  );
 };
 
 type LettersProps = {
@@ -19,14 +30,14 @@ type LettersProps = {
 
 export const Letters = (props: LettersProps): JSX.Element => {
   if (!props.letters.length) {
-    return <h1>Wrapping rope around someones neck...</h1>;
+    return <H1>Wrapping rope around someones neck...</H1>;
   }
 
   return (
-    <div className="section horizontal">
+    <Section horizontal={true}>
       {props.letters.map((value, index) => (
         <Letter key={index} letter={value.character} show={value.isShown} />
       ))}
-    </div>
+    </Section>
   );
 };

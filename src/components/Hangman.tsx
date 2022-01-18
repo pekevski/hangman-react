@@ -5,6 +5,7 @@ import { Letters } from "./Letter";
 import { getRandomWord, checkResult } from "../services/WordService";
 import { HangmanLetter } from "../model/HangmanLetter";
 import { HangmanGuessResult } from "../model/HangmanGuess";
+import { Button, Container, H1, H2, Section } from "./Layout";
 
 export const Hangman = (): JSX.Element => {
   const [word, setWord] = useState<string>();
@@ -83,24 +84,24 @@ export const Hangman = (): JSX.Element => {
 
   if (result) {
     return (
-      <div style={{padding: '0.5rem'}}>
-        <h1>Hangman word: {word}</h1>
-        <h2>Result: {result}</h2>
-        <button className="button" onClick={handleRetry}>
+      <Container>
+        <H1>Hangman word: {word}</H1>
+        <H2>Result: {result}</H2>
+        <Button onClick={handleRetry}>
           Retry
-        </button>
-      </div>
+        </Button>
+      </Container>
     );
   } else {
     return (
-      <div style={{padding: '0.5rem'}}>
-        <div className="section">
-          <h1>Hangman</h1>
+      <Container>
+        <Section horizontal={false}>
+          <H1>Hangman</H1>
           <Letters letters={letters} />
           <Guess onGuess={onGuessLetter} />
-        </div>
+        </Section>
         <Guesses guesses={guesses} attempts={attempts} />
-      </div>
+      </Container>
     );
   }
 };

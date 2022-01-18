@@ -4,11 +4,21 @@ import {
   ChangeEventHandler,
   KeyboardEventHandler,
 } from "react";
+import styled, { css } from "styled-components";
 import { HangmanGuessResult } from "../model/HangmanGuess";
+import { H1, H3, LetterStyle, Paragraph, Section } from "./Layout";
 
 type GuessProps = {
   onGuess: (guessedLetter: string) => void;
 };
+
+const GuessTitle = styled(H1)`
+  margin-right: 0.5rem;
+`
+const GuessInput = styled.input`
+  ${LetterStyle}
+  width: 1ch;
+`
 
 export const Guess = (props: GuessProps): JSX.Element => {
   const [value, setValue] = useState("");
@@ -42,25 +52,20 @@ export const Guess = (props: GuessProps): JSX.Element => {
   };
 
   return (
-    <div>
-      <div className="horizontal">
-        <h1 style={{ marginRight: "10px" }}>Guess:</h1>
-        <input
+    <>
+      <Section horizontal>
+        <GuessTitle>Guess:</GuessTitle>
+        <GuessInput
           autoFocus
-          className="letter-input"
           ref={inputEl}
           value={value}
           onChange={onGuessChange}
           onKeyDown={handleKeyDown}
           maxLength={2}
         />
-      </div>
-      {value === "" ? (
-        <p>Guess a letter by typing one.</p>
-      ) : (
-        <p>Press Enter to guess letter.</p>
-      )}
-    </div>
+      </Section>
+      <Paragraph>{(value === "") ? "Guess a letter by typing one." : "Press Enter to guess letter."}</Paragraph>
+    </>
   );
 };
 
@@ -69,19 +74,35 @@ type GuessesProps = {
   attempts: number;
 };
 
+type GuessResultProps = {
+  isCorrect: boolean;
+}
+
+const GuessResult = styled.h3<GuessResultProps>`
+  margin-right: 1rem;
+
+  ${props => props.isCorrect && css`
+    color: darkgreen;
+  `}
+
+  ${props => !props.isCorrect && css`
+    color: salmon;
+  `}
+`
+
 export const Guesses = (props: GuessesProps): JSX.Element => {
   return (
-    <div className="section">
-      <h3>Attempts Remaining: {props.attempts}</h3>
-      <div className="horizontal">
-      {props.guesses.map((guess, index) => {
-        return (
-          <h3 className={guess.isCorrect ? "correct" : "incorrect"} style={{marginRight: '1rem'}} key={index}>
-            {guess.character.toUpperCase()} {guess.isCorrect ? "✅" : "❌"}
-          </h3>
-        );
-      })}
-      </div>
-    </div>
+    <Section horizontal={false}>
+      <H3>Attempts Remaining: {props.attempts}</H3>
+      <Section horizontal={true}>
+        {props.guesses.map((guess, index) => {
+          return (
+            <GuessResult isCorrect={guess.isCorrect} key={index}>
+              {guess.character.toUpperCase()} {guess.isCorrect ? "✅" : "❌"}
+            </GuessResult>
+          );
+        })}
+      </Section>
+    </Section>
   );
 };
